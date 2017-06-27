@@ -18,7 +18,12 @@ class Slick_Slider_Customizer {
 	 * @return [type]             [description]
 	 */
 	public function slider_customizer( $customizer_additions ) {
-		$this->slider_controls( $customizer_additions );
+		$this->initial_controls( $customizer_additions );
+
+		$show_slider = get_theme_mod( 'slider_on' );
+		if ( true === $show_slider ) {
+			$this->slider_controls( $customizer_additions );
+		}
 	}
 
 	/**
@@ -28,7 +33,7 @@ class Slick_Slider_Customizer {
 	 *
 	 * @return Void
 	 */
-	private function slider_controls( $customizer_additions ) {
+	private function initial_controls( $customizer_additions ) {
 		/**
 		 * Checkbox control
 		 */
@@ -74,6 +79,81 @@ class Slick_Slider_Customizer {
 				'9' => 9,
 			),
 			'priority' => 1,
+		) );
+	}
+
+
+	/**
+	 * A section to show how you use the default customizer controls in WordPress
+	 *
+	 * @param Obj $customizer_additions - Customizer Additions
+	 *
+	 * @return Void
+	 */
+	private function slider_controls( $customizer_additions ) {
+		$customizer_additions->add_section( 'customizer_slider_section', array(
+			'title'          => 'Slider Controls',
+			'priority'       => 35,
+		) );
+
+		// Select control
+		$customizer_additions->add_setting( 'number_slider_images', array(
+			'default'        => '3',
+		) );
+
+		$customizer_additions->add_control( 'number_slider_images', array(
+			'label'   => 'Number of slider images',
+			'description'   => 'Select number of images to show in slider. Currently slider will show ' . ( get_theme_mod( 'number_slider_images' ) ?get_theme_mod( 'number_slider_images' ) : '3' ) . ' images',
+			'section' => 'customizer_slider_section',
+			'type'    => 'select',
+			'choices' => array(
+				'1' => 1,
+				'2' => 2,
+				'3' => 3,
+				'4' => 4,
+				'5' => 5,
+				'6' => 6,
+				'7' => 7,
+				'8' => 8,
+				'9' => 9,
+			),
+			'priority' => 4,
+		) );
+
+		$slides = intval( get_theme_mod( 'number_slider_images' ) );
+
+		$x = 1;
+
+		while( $x <= $slides ) {
+			$customizer_additions->add_setting( 'slider_image_' . $x, array(
+				'default'        => '',
+			) );
+
+			$customizer_additions->add_control( new WP_Customize_Image_Control( $customizer_additions, 'slider_image_' . $x, array(
+				'label'   => 'Slider Image ' . $x,
+				'section' => 'customizer_slider_section',
+				'settings'   => 'slider_image_' . $x,
+				'priority' => 8,
+			) ) );
+			$x++;
+		}
+		if ( ! class_exists( 'CustomizeImageGalleryControl\Control' ) ) {
+			return;
+		}
+
+		$customizer_additions->add_setting( 'customizer_image_gallery', array(
+			'default' => array(),
+			'sanitize_callback' => 'wp_parse_id_list',
+			) );
+		$customizer_additions->add_control( new CustomizeImageGalleryControl\Control(
+			$customizer_additions,
+			'customizer_image_gallery',
+			array(
+				'label'    => __( 'Image Gallery Field Label' ),
+				'section'  => 'customizer_slider_section',
+				'settings' => 'customizer_image_gallery',
+				'type'     => 'image_gallery',
+				)
 		) );
 
 	}
