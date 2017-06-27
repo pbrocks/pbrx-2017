@@ -51,7 +51,7 @@ class Slick_Slider_Customizer {
 			'slider_on', array(
 				'label'   => 'Show Slider',
 				'description'   => 'Slide this toggle to switch on your homepage slider.',
-				'section' => 'static_front_page',
+				'section' => 'header_image',
 				'type'    => 'ios',
 				'priority' => 1,
 			)
