@@ -5,6 +5,7 @@ class PBrx_2017_Customizer {
 	public function __construct() {
 		add_action( 'customize_register', array( $this, 'engage_customizer' ) );
 		add_action( 'wp_head', array( $this, 'pbrx_2017_inline_style' ) );
+		add_filter( 'footer_copyright_filter', array( $this, 'replace_copyright' ) );
 	}
 
 	/**
@@ -38,7 +39,7 @@ class PBrx_2017_Customizer {
 				'priority'       => 16,
 				'panel'          => 'pbrx_2017_panel',
 				'description' => 'This is a description of this text setting in the PBrx 2017 Customizer Controls section of the PBrx 2017 panel in <h4>' . __FILE__ . '</h4>',
-			)
+				)
 		);
 
 		$customizer_additions->add_setting( 'show_slider1', array(
@@ -56,7 +57,7 @@ class PBrx_2017_Customizer {
 				'section' => 'pbrx_2017_section',
 				'type'    => 'ios',
 				'priority' => 1,
-			)
+				)
 		) );
 
 		/**
@@ -68,7 +69,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'date_picker_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Date_Picker_Custom_Control(
@@ -79,7 +80,7 @@ class PBrx_2017_Customizer {
 					'section' => 'pbrx_2017_section',
 					'settings'   => 'date_picker_setting',
 					'priority' => 2,
-				)
+					)
 			)
 		);
 
@@ -92,7 +93,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'layout_picker_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Layout_Picker_Custom_Control(
@@ -101,7 +102,7 @@ class PBrx_2017_Customizer {
 					'section'    => 'pbrx_2017_section',
 					'settings'   => 'layout_picker_setting',
 					'priority'   => 2,
-				)
+					)
 			)
 		);
 
@@ -114,7 +115,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'category_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Category_Dropdown_Custom_Control(
@@ -123,7 +124,7 @@ class PBrx_2017_Customizer {
 					'section'    => 'pbrx_2017_section',
 					'settings'   => 'category_dropdown_setting',
 					'priority'   => 3,
-				)
+					)
 			)
 		);
 
@@ -136,7 +137,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'menu_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Menu_Dropdown_Custom_Control(
@@ -145,7 +146,7 @@ class PBrx_2017_Customizer {
 					'section'    => 'pbrx_2017_section',
 					'settings'   => 'menu_dropdown_setting',
 					'priority'   => 4,
-				)
+					)
 			)
 		);
 
@@ -158,7 +159,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'post_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Post_Dropdown_Custom_Control(
@@ -167,7 +168,7 @@ class PBrx_2017_Customizer {
 					'section' => 'pbrx_2017_section',
 					'settings'   => 'post_dropdown_setting',
 					'priority' => 5,
-				)
+					)
 			)
 		);
 
@@ -180,7 +181,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'post_type_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Post_Type_Dropdown_Custom_Control(
@@ -189,7 +190,7 @@ class PBrx_2017_Customizer {
 					'section'  => 'pbrx_2017_section',
 					'settings' => 'post_type_dropdown_setting',
 					'priority' => 6,
-				)
+					)
 			)
 		);
 
@@ -202,7 +203,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'tags_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Tags_Dropdown_Custom_Control(
@@ -211,7 +212,7 @@ class PBrx_2017_Customizer {
 					'section'  => 'pbrx_2017_section',
 					'settings' => 'tags_dropdown_setting',
 					'priority' => 7,
-				)
+					)
 			)
 		);
 
@@ -224,7 +225,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'taxonomy_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Taxonomy_Dropdown_Custom_Control(
@@ -233,7 +234,7 @@ class PBrx_2017_Customizer {
 					'section'   => 'pbrx_2017_section',
 					'settings'  => 'taxonomy_dropdown_setting',
 					'priority'  => 8,
-				)
+					)
 			)
 		);
 
@@ -246,7 +247,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'user_dropdown_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new User_Dropdown_Custom_Control(
@@ -255,7 +256,7 @@ class PBrx_2017_Customizer {
 					'section' => 'pbrx_2017_section',
 					'settings'   => 'user_dropdown_setting',
 					'priority' => 9,
-				)
+					)
 			)
 		);
 
@@ -268,7 +269,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'textarea_text_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Textarea_Custom_Control(
@@ -277,7 +278,7 @@ class PBrx_2017_Customizer {
 					'section' => 'pbrx_2017_section',
 					'settings'   => 'textarea_text_setting',
 					'priority' => 10,
-				)
+					)
 			)
 		);
 
@@ -290,7 +291,7 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_setting(
 			'text_editor_setting', array(
 				'default'        => '',
-			)
+				)
 		);
 		$customizer_additions->add_control(
 			new Text_Editor_Custom_Control(
@@ -299,7 +300,7 @@ class PBrx_2017_Customizer {
 					'section' => 'pbrx_2017_section',
 					'settings'   => 'text_editor_setting',
 					'priority' => 11,
-				)
+					)
 			)
 		);
 	}
@@ -318,5 +319,16 @@ class PBrx_2017_Customizer {
 			}
 		</style>
 		<?php
+	}
+
+	/**
+	 * [replace_copyright description]
+	 *
+	 * @param [type] $copyright [description]
+	 * @return [type]             [description]
+	 */
+	public function replace_copyright( $copyright ) {
+		// do something to $copyright
+		return $copyright;
 	}
 }
