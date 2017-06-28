@@ -49,7 +49,9 @@ class Slick_Slider_Customizer {
 		/**
 		 * Adding a Checkbox Toggle
 		 */
-		require_once dirname( __FILE__ ) . '/controls/checkbox/toggle-control.php';
+		if ( ! class_exists( 'Customizer_Toggle_Control' ) ) {
+			include_once dirname( __FILE__ ) . '/controls/checkbox/toggle-control.php';
+		}
 		$customizer_additions->add_control( new Customizer_Toggle_Control( $customizer_additions,
 			'slider_on', array(
 				'label'   => 'Show Slider',
@@ -58,30 +60,6 @@ class Slick_Slider_Customizer {
 				'type'    => 'ios',
 				'priority' => 1,
 			)
-		) );
-
-		// Select control
-		$customizer_additions->add_setting( 'front_page_pnls', array(
-			'default'        => '3',
-		) );
-
-		$customizer_additions->add_control( 'front_page_pnls', array(
-			'label'   => 'Homepage Panels',
-			'description'   => 'Select number of panels to show on homepage and then in the Theme Options section select your pages.',
-			'section' => 'static_front_page',
-			'type'    => 'select',
-			'choices' => array(
-				'1' => 1,
-				'2' => 2,
-				'3' => 3,
-				'4' => 4,
-				'5' => 5,
-				'6' => 6,
-				'7' => 7,
-				'8' => 8,
-				'9' => 9,
-			),
-			'priority' => 1,
 		) );
 	}
 
@@ -96,7 +74,19 @@ class Slick_Slider_Customizer {
 	private function slider_controls( $customizer_additions ) {
 		$customizer_additions->add_section( 'customizer_slider_section', array(
 			'title'          => 'Slider Controls',
+			'description'          => 'Slider Controls' . __FILE__,
 			'priority'       => 35,
+			'panel'          => 'pbrx_2017_panel',
+		) );
+
+		$customizer_additions->add_control( new Customizer_Toggle_Control( $customizer_additions,
+			'slider_on', array(
+				'label'   => 'Show Slider',
+				'description'   => 'Slide this toggle to switch off your homepage slider. To turn the slider on at a later time, you\'ll find this toggle under the Header Media panel.',
+				'section' => 'customizer_slider_section',
+				'type'    => 'ios',
+				'priority' => 1,
+			)
 		) );
 
 		// Select control
