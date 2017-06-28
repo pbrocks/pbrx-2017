@@ -8,7 +8,7 @@ class Slick_Slider_Customizer {
 	public function __construct() {
 		add_action( 'customize_register', array( $this, 'slider_customizer' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'slick_slider_scripts' ) );
-		add_shortcode( 'slick-slider-shortcode', array( $this, 'slick_slider_shortcode_defaults' ) );
+		add_shortcode( 'slick-slider-shortcode', array( $this, 'slick_slider_from_customizer' ) );
 	}
 
 	/**
@@ -19,8 +19,11 @@ class Slick_Slider_Customizer {
 	 */
 	public function slider_customizer( $customizer_additions ) {
 		$this->initial_controls( $customizer_additions );
-
-		$show_slider = get_theme_mod( 'slider_on' );
+		if ( get_theme_mod( 'slider_on' ) ) {
+			$show_slider = get_theme_mod( 'slider_on' );
+		} else {
+			return;
+		}
 		if ( true === $show_slider ) {
 			$this->slider_controls( $customizer_additions );
 		}
@@ -58,11 +61,11 @@ class Slick_Slider_Customizer {
 		) );
 
 		// Select control
-		$customizer_additions->add_setting( 'front_page_ps', array(
+		$customizer_additions->add_setting( 'front_page_pnls', array(
 			'default'        => '3',
 		) );
 
-		$customizer_additions->add_control( 'front_page_ps', array(
+		$customizer_additions->add_control( 'front_page_pnls', array(
 			'label'   => 'Homepage Panels',
 			'description'   => 'Select number of panels to show on homepage and then in the Theme Options section select your pages.',
 			'section' => 'static_front_page',
@@ -124,7 +127,7 @@ class Slick_Slider_Customizer {
 
 		$x = 1;
 
-		while( $x <= $slides ) {
+		while ( $x <= $slides ) {
 			$customizer_additions->add_setting( 'slider_image_' . $x, array(
 				'default'        => '',
 			) );
@@ -141,17 +144,17 @@ class Slick_Slider_Customizer {
 			return;
 		}
 
-		$customizer_additions->add_setting( 'customizer_image_gallery', array(
+		$customizer_additions->add_setting( 'customizer_image_gallery1', array(
 			'default' => array(),
 			'sanitize_callback' => 'wp_parse_id_list',
-			) );
+		) );
 		$customizer_additions->add_control( new CustomizeImageGalleryControl\Control(
 			$customizer_additions,
-			'customizer_image_gallery',
+			'customizer_image_gallery1',
 			array(
 				'label'    => __( 'Image Gallery Field Label' ),
 				'section'  => 'customizer_slider_section',
-				'settings' => 'customizer_image_gallery',
+				'settings' => 'customizer_image_gallery1',
 				'type'     => 'image_gallery',
 				)
 		) );
@@ -183,13 +186,20 @@ class Slick_Slider_Customizer {
 		?>
 		<div class="container">
 			<div id="slick">
-				<?php $gallery_images = get_theme_mod( 'customizer_image_gallery' );
+				<?php
+				$gallery_images = array(
+					'slider_image_1' => 'http://customizer.dev/wp-content/uploads/2017/06/crab-stuffed-salmon.jpg',
+					'slider_image_2' => 'http://customizer.dev/wp-content/uploads/2017/06/coffee-8.jpg',
+					'slider_image_3' => 'http://customizer.dev/wp-content/uploads/2017/06/sandwich-8.jpg',
+					'slider_image_4' => 'http://customizer.dev/wp-content/uploads/2017/06/espresso-8.jpg',
+					);
+				// $gallery_images = get_theme_mod( 'customizer_image_gallery1' );
 				 // $gallery_images = array( '0' => '28', '1' => '4', '2' => '5' );
 				foreach ( $gallery_images as $key => $mod ) {
 					?>
 					<div>
-						<?php  ?>
-						<div class="img--holder" style="background-image: url( '<?php echo wp_get_attachment_url( $mod ); ?>' );"></div>
+						<div class="img--holder" style="background-image: url( '<?php echo $mod; ?>' );">
+						</div>
 					</div>
 					<?php
 				} ?>
@@ -201,7 +211,39 @@ class Slick_Slider_Customizer {
 	/**
 	 * Let's borrow some images from Unsplash to display as defaults until the user customizes with their own.
 	 **/
+	public function slick_slider_shortcode_defaults22() {
+		?>
+		<div class="container">
+			<div id="slick">
+				<div>
+					<div class="img--holder" style="background-image: url( <?php echo get_stylesheet_directory_uri() . '/inc/images/photo-1449023859676-22e61b0c0695.jpeg'; ?>);"></div>
+				</div>
+			</div><!-- /#slick -->
+		</div><?php
+	}
+	/**
+	 * Let's borrow some images from Unsplash to display as defaults until the user customizes with their own.
+	 **/
 	public function slick_slider_shortcode_defaults() {
+		?>
+		<div class="container">
+			<div id="slick">
+				<div>
+					<div class="img--holder" style="background-image: url( <?php echo get_stylesheet_directory_uri() . '/inc/images/photo-1449023859676-22e61b0c0695.jpeg'; ?>);"></div>
+				</div>
+				<div>
+					<div class="img--holder" style="background-image: url( <?php echo get_stylesheet_directory_uri() . '/inc/images/photo-1487241281672-301e0f542588.jpeg'; ?>);"></div>
+				</div>
+				<div>
+					<div class="img--holder" style="background-image: url( <?php echo get_stylesheet_directory_uri() . '/inc/images/photo-1481873098652-b87c7a2fd98c.jpeg'; ?>);"></div>
+				</div>
+			</div><!-- /#slick -->
+		</div><?php
+	}
+	/**
+	 * Let's borrow some images from Unsplash to display as defaults until the user customizes with their own.
+	 **/
+	public function slick_slider_shortcode_defaults1() {
 		?>
 		<div class="container">
 			<div id="slick">

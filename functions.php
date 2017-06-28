@@ -9,8 +9,6 @@
  * @since 1.0
  */
 
-// include( 'inc/functions/pbrx-functions.php' );
-// include( 'inc/functions/class-pbrx-customizer-options.php' );
 include( 'inc/functions/class-slick-slider-customizer.php' );
 
 /**
