@@ -9,6 +9,7 @@
  * @since 1.0
  */
 
+include( 'inc/functions/class-pbrx-2017-customizer.php' );
 include( 'inc/functions/class-slick-slider-customizer.php' );
 
 /**
@@ -27,4 +28,6 @@ function pbrx_adjust_panel_quantity() {
 	return $front_page_panels;
 }
 add_filter( 'twentyseventeen_front_page_sections', 'pbrx_adjust_panel_quantity' );
+
+
 
