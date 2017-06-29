@@ -27,12 +27,19 @@ class PBrx_2017_Customizer {
 	 * @return [type]             [description]
 	 */
 	private function pbrx_2017_section( $customizer_additions ) {
-		// https://developer.wordpress.org/reference/functions/comment_form/
+		/**
+		 * Adding a Checkbox Toggle
+		 */
+		if ( ! class_exists( 'Customizer_Toggle_Control' ) ) {
+			require_once dirname( __FILE__ ) . '/controls/checkbox/toggle-control.php';
+		}
+
 		$customizer_additions->add_panel( 'pbrx_2017_panel', array(
 			'title'       => 'PBrx 2017 Customizer',
 			'description' => 'This is a description of this PBrx_2017_Customizer panel',
 			'priority'    => 10,
 		) );
+
 		$customizer_additions->add_section(
 			'pbrx_2017_section', array(
 				'title'          => 'PBrx 2017 Controls',
@@ -42,26 +49,32 @@ class PBrx_2017_Customizer {
 				)
 		);
 
-		$customizer_additions->add_setting( 'show_slider1', array(
-			'default'        => '1',
-		) );
+		/**
+		 * Radio control
+		 */
+		$customizer_additions->add_setting(
+			'menu_radio', array(
+				'default'        => '2',
+			)
+		);
 
-		if ( ! class_exists( 'Customizer_Toggle_Control' ) ) {
-			require_once dirname( __FILE__ ) . '/controls/checkbox/toggle-control.php';
-		}
-
-		$customizer_additions->add_control( new Customizer_Toggle_Control( $customizer_additions,
-			'show_slider1', array(
-				'label'   => 'Show Slider',
-				'description'   => 'description = Show Slider to be removed',
-				'section' => 'pbrx_2017_section',
-				'type'    => 'ios',
-				'priority' => 1,
-				)
-		) );
+		$customizer_additions->add_control(
+			'menu_radio', array(
+				'section'     => 'pbrx_2017_section',
+				'type'        => 'radio',
+				'label'       => 'Menu Alignment Radio Buttons',
+				'description' => 'Description of this radio setting in the Simple Customizer Controls section of the Plustomizer panel',
+				'choices'     => array(
+					'1' => 'left',
+					'2' => 'center',
+					'3' => 'right',
+				),
+				'priority'    => 1,
+			)
+		);
 
 		/**
-		 * Adding Date Picker
+		 * Adding a Date Picker
 		 */
 		if ( ! class_exists( 'Date_Picker_Custom_Control' ) ) {
 			include_once dirname( __FILE__ ) . '/controls/date/date-picker-custom-control.php';
@@ -74,7 +87,6 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_control(
 			new Date_Picker_Custom_Control(
 				$customizer_additions, 'date_picker_setting', array(
-					'title'   => 'Date P1ker Setting',
 					'label'   => 'Date Peliker Setting => ' . $theme_mod,
 					'description'   => 'Date Peliker Set in Date Peliker Setting',
 					'section' => 'pbrx_2017_section',
@@ -83,7 +95,16 @@ class PBrx_2017_Customizer {
 					)
 			)
 		);
+	}
 
+
+	/**
+	 * [pbrx_2017_advanced description]
+	 *
+	 * @param [type] $customizer_additions [description]
+	 * @return [type]             [description]
+	 */
+	public function pbrx_2017_advanced( $customizer_additions ) {
 		/**
 		 * Adding a Layout Picker
 		 */
@@ -308,15 +329,21 @@ class PBrx_2017_Customizer {
 	/**
 	 * [pbrx_2017_inline_style description]
 	 *
-	 * @param [type] $customizer_additions [description]
 	 * @return [type]             [description]
 	 */
-	public function pbrx_2017_inline_style( $customizer_additions ) {
+	public function pbrx_2017_inline_style() {
 		?>
 		<style type="text/css">
-			#top-menu {
+		<?php if ( '2' == get_theme_mod( 'menu_radio' ) ) { ?>
+			#top-menu, #customize-control-menu_radio > label {
 				text-align: center;
 			}
+		<?php } elseif ( '3' == get_theme_mod( 'menu_radio' ) ) { ?>
+			#top-menu {
+				text-align: right;
+			}
+		<?php } ?>
+			/*#customize-control-menu_radio > label*/
 		</style>
 		<?php
 	}
