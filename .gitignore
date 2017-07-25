@@ -16,3 +16,5 @@ wp-content/plugins/hello.php
 /sitemap.xml
 /sitemap.xml.gz
 
+inc/functions/class-sample-2017-customizer.php
+.DS_Store

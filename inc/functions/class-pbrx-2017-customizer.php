@@ -63,7 +63,7 @@ class PBrx_2017_Customizer {
 				'section'     => 'pbrx_2017_section',
 				'type'        => 'radio',
 				'label'       => 'Menu Alignment Radio Buttons',
-				'description' => 'Description of this radio setting in the Simple Customizer Controls section of the Plustomizer panel',
+				'description' => 'Description of this radio setting in pbrx 2017 panel',
 				'choices'     => array(
 					'1' => 'left',
 					'2' => 'center',
@@ -87,7 +87,8 @@ class PBrx_2017_Customizer {
 		$customizer_additions->add_control(
 			new Date_Picker_Custom_Control(
 				$customizer_additions, 'date_picker_setting', array(
-					'label'   => 'Date Peliker Setting => ' . $theme_mod,
+					'label'   => 'Date Peliker Setting => ',
+					'title'   => 'Date Peliker Setting => ',
 					'description'   => 'Date Peliker Set in Date Peliker Setting',
 					'section' => 'pbrx_2017_section',
 					'settings'   => 'date_picker_setting',
@@ -335,7 +336,7 @@ class PBrx_2017_Customizer {
 		?>
 		<style type="text/css">
 		<?php if ( '2' == get_theme_mod( 'menu_radio' ) ) { ?>
-			#top-menu, #customize-control-menu_radio > label {
+			#top-menu {
 				text-align: center;
 			}
 		<?php } elseif ( '3' == get_theme_mod( 'menu_radio' ) ) { ?>
